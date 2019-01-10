@@ -1,16 +1,21 @@
 body, select, input[type="text"] {
-	font-family: Consolas, "Andale Mono", "Lucida Console", "Lucida Sans Typewriter", Monaco, "Courier New", "monospace";
+	font-family: cursive;
 }
 
 input[type="text"], select, label {
-	font-size: 16px;
+	font-size: 20px;
 }
 
 input[readonly] {
-	background-color: rgba(0, 0, 0, 0.2);
-	font-style: italic;
+	background-color: rgb(117, 167, 255);
+	font-style:oblique;
 }
 
 input[type="text"] {
 	text-align: right;
+}
+body {
+  -webkit-user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
 }

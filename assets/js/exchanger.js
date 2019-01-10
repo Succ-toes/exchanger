@@ -50,12 +50,20 @@ var Exchanger = {
 		return select.options[select.selectedIndex].value;
 	},
 	getConversionRates: function() {
-		var apiURL = 'https://api.exchangeratesapi.io/latest?base=' + Exchanger.inputCurrency();
-		loadJSON(apiURL, function(data) {
-			Exchanger.Data[Exchanger.inputCurrency()] = data;
-		}, function(xhr) {
-			console.log('Error');
-		});
+		if(isOnline()) {
+			var apiURL = 'https://api.exchangeratesapi.io/latest?base=' + Exchanger.inputCurrency();
+			loadJSON(apiURL, function(data)
+			 {
+				Exchanger.Data[Exchanger.inputCurrency()] = data;
+
+				Exchanger.saveData();
+			}, function(xhr) {
+				console.log('Error');
+			});
+		}
+		else {
+
+		}
 	},
 	convert: function() {
 		Exchanger.getConversionRates();
@@ -70,8 +78,17 @@ var Exchanger = {
 	},
 	saveData: function() {
 		// save Data to localStorage for offline use
+		if(hasLocalStorage()) {
+			localStorage.setItem('ExchangerData', JSON.stringify(Exchanger.Data));
+		}
 	},
 	loadData: function() {
 		// load Data from localStorage
+		if (localStorage()) {
+			if(localStorage.getItem('ExchangerData')!== null){
+				Exchange.Data = JSON.parse(localStorage.getItem('ExchangerData'));
+			}
+		}
 	}
 }
+window.onLoad = Exchanger.loadData();
